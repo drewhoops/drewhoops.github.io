@@ -15,7 +15,11 @@
         }
 
         h1 {
-            margin-bottom: 20px;
+            margin-bottom: 10px;
+        }
+        a { 
+            margin-bottom: 10px;
+            font-size: 20px;
         }
 
         input {
@@ -57,9 +61,11 @@
 <body>
 
     <h1>Founder Code Checker</h1>
-
+    
+    <a href="https://www.epicgames.com/id/api/redirect?clientId=ec684b8c687f479fadea3cb2ad83f5c6&responseType=code">Get your authorization code here (login to epicgames first)</a> 
+    
     <input id="authCode" placeholder="Paste your authorization code here" />
-
+    
     <button onclick="sendCode()">Submit</button>
 
     <div id="result"></div>
