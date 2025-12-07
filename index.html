@@ -66,32 +66,30 @@
 
     <script>
         async function sendCode() {
-    const code = document.getElementById("authCode").value.trim();
-    const resultBox = document.getElementById("result");
+            const code = document.getElementById("authCode").value;
+            const resultBox = document.getElementById("result");
 
-    // Length check (authorization codes are exactly 32 characters)
-    if (code.length !== 32) {
-        resultBox.innerText = "❌ Invalid authorization code. It must be exactly 32 characters.";
-        return;
-    }
+            if (!code.trim()) {
+                resultBox.innerText = "Please enter an authorization code.";
+                return;
+            }
 
-    resultBox.innerText = "Sending request...";
+            resultBox.innerText = "Sending request...";
 
-    try {
-        const res = await fetch("https://your-worker-name.username.workers.dev/", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ authorizationCode: code })
-        });
+            try {
+                const res = await fetch("https://your-worker-name.username.workers.dev/", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ authorizationCode: code })
+                });
 
-        const data = await res.text();
-        resultBox.innerText = data;
-    } 
-    catch (err) {
-        resultBox.innerText = "Error: " + err;
-    }
-}
-
+                const data = await res.text();
+                resultBox.innerText = data;
+            } 
+            catch (err) {
+                resultBox.innerText = "Error: " + err;
+            }
+        }
     </script>
 
 </body>
