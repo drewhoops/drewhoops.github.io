@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Founder Code Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #111;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 80px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 350px;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            border-radius: 6px;
+            border: none;
+            outline: none;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 16px;
+            background: #4caf50;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            color: white;
+        }
+
+        button:hover {
+            background: #45a047;
+        }
+
+        #result {
+            margin-top: 30px;
+            width: 80%;
+            max-width: 800px;
+            background: #222;
+            padding: 20px;
+            border-radius: 8px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Founder Code Checker</h1>
+
+    <input id="authCode" placeholder="Paste your authorization code here" />
+
+    <button onclick="sendCode()">Submit</button>
+
+    <div id="result"></div>
+
+    <script>
+        async function sendCode() {
+            const code = document.getElementById("authCode").value;
+            const resultBox = document.getElementById("result");
+
+            if (!code.trim()) {
+                resultBox.innerText = "Please enter an authorization code.";
+                return;
+            }
+
+            resultBox.innerText = "Sending request...";
+
+            try {
+                const res = await fetch("https://your-worker-name.username.workers.dev/", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ authorizationCode: code })
+                });
+
+                const data = await res.text();
+                resultBox.innerText = data;
+            } 
+            catch (err) {
+                resultBox.innerText = "Error: " + err;
+            }
+        }
+    </script>
+
+</body>
+</html>
